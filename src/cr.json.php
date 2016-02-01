@@ -8,7 +8,7 @@
 if (file_exists('session.php')) {include('session.php');}
 
 if (!isset($_SESSION['user'])) {
-    // Pas d'utilisateur connecté, on passe en mode test
+    // Pas d'utilisateur connecté, on passe en mode debug
     // Le testeur rentre le cote a la main
 
     if (isset($_GET["cote"])) {
