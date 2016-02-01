@@ -23,6 +23,8 @@ if (!isset($_SESSION['user'])) {
     $session_nom_joueur = $_SESSION['user'];
 }
 
+
+//On tente de se connecter a la bdd
 try {$bdd = new PDO('mysql:host=localhost;dbname=echec', 'root', '');}
 catch (Exception $e) {die('{"erreur":"Erreur BDD : ' . $e->getMessage().'"}');}
 
