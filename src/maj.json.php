@@ -38,6 +38,31 @@ if (isset($_GET["partie"], $_GET["cote"], $_GET["tour"], $_GET["trait"])) {
 	$cote = $_GET["cote"];
 	$tour = $_GET["tour"];
 	$trait = $_GET["trait"];
+
+    // Recuperation des informations stockées dans la BDD :
+    $req = 'SELECT * FROM parties WHERE id='.$partie;
+    $bdd_tps = repBdd($bdd, $req);
+    $bdd_nom_joueur = $bdd_tps['j'.$cote];
+
+    // On teste que cote correspond à bien à bdd_nom_joueur :
+    if($cote == $bdd_nom_joueur){
+
+        // On vérifie que la partie en est au stade indiqué par les paramètres "tour" et "trait" :
+        $bdd_trait = $bdd_tps['trait'];
+        $bdd_tour = $bdd_tps['tour'];
+
+        if($bdd_trait == $trait && $bdd_tour == $tour){
+            //Si le paramètre optionnel "coup" est fourni, on le récupère :
+            if (isset($_GET["coup"]){
+                $coup = $_GET["coup"];
+            }
+
+        }else{
+            echo '{"Erreur":"Le tour ou le trait ne correspondent pas à ceux de la bdd !"}';
+        }
+    }else{
+        echo '{"Erreur":"Le joueur ne correspond pas à celui de la bdd !"}';
+    }
 }
 
 // Fermeture de la connexion :

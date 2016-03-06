@@ -48,9 +48,9 @@ if (isset($_GET["partie"])) {
         elseif ($bdd_tps['j2'] == $session_nom_joueur) {$cote = 2;}
 
         // Si le jour n'apparteint pas a la partie, on renvoie une erreur :
-        else {echo '{"erreur":"Vous n\'avez pas acces a cette partie"}'; $bdd = null; die();}
+        else {echo '{"Erreur":"Vous n\'avez pas acces a cette partie"}'; $bdd = null; die();}
 
-    } else {echo '{"erreur":"Erreur cote serveur."}'; $bdd = null; die('');} // Probleme de connexion
+    } else {echo '{"Erreur":"Erreur cote serveur."}'; $bdd = null; die('');} // Probleme de connexion
     
     // On stocke les differents parametres recapitulant la partie :
     $recap = [

@@ -1,6 +1,6 @@
 <?php
 /**
-	Divers utilaires utiles pour le controle et la mise a jour des parties :
+	Divers utilitaires utiles pour le controle et la mise a jour des parties :
 **/
 
 	function repBdd($bdd, $req) {
