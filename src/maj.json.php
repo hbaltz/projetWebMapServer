@@ -61,12 +61,16 @@ if (isset($_GET["partie"], $_GET["cote"], $_GET["tour"], $_GET["trait"])) {
                 $bdd_histo_trait = json_decode($bdd_tps['histo_j'.$trait], true); 
                 // Coup choisi :
                 $le_coup = $bdd_histo_trait[$bdd_tour*2-2]['coups'][$coup];
+                // Recuperation des roques possibles pour le joueur au trait :
+                $roques_trait = json_decode($bdd_tps['roques_j'.$trait], true);
 
+                // Si le jouer choisi d'abandonner, c'est la fin de la partie :
                 if($le_coup == 'abandon'){
                     $fin = 'abandon_'.$trait;
                     $bdd_histo_trait[] = ["abandon"=>1];
-                    $bdd_histo_autre[] = ["abandon"=>1];
+                    $bdd_histo_aut[] = ["abandon"=>1];
 
+                // Sinon l’arbitrage est lancé pour jouer le coup et rédiger une nouvelle situation :
                 }else{
                     // On recupere les informations de l'autre joueur :
                     if($trait==1){
@@ -74,11 +78,14 @@ if (isset($_GET["partie"], $_GET["cote"], $_GET["tour"], $_GET["trait"])) {
                     }else{
                        $trait_aut = 1 
                     }
+
                     // Recuperation de l'historiques des coups de l'adversaire :
-                    $bdd_histo_trait = json_decode($bdd_tps['histo_j'.$trait_aut], true);
+                    $bdd_histo_aut = json_decode($bdd_tps['histo_j'.$trait_aut], true);
+                    // Recuperation des roques possibles pour l'adversaire :
+                    $roques_aut = json_decode($bdd_tps['roques_j'.$trait_aut], true);
 
                 }
-            
+
 
             }
 
