@@ -31,6 +31,10 @@ catch (Exception $e) {die('{"erreur":"Erreur BDD : ' . $e->getMessage().'"}');}
 // On inclut les utilitaires :
 include('utilitaires.php');
 
+// On inclut ce qui est utile à la gestion des vues :
+include('gestion_vues.php');
+include('utilitaires_vues.php');
+
 // Recuperation des parametres : partie, cote, tour, trait et coup en GET
 if (isset($_GET["partie"], $_GET["cote"], $_GET["tour"], $_GET["trait"])) {
 	// Les parametres sont defini ont peut continuer :
@@ -83,6 +87,15 @@ if (isset($_GET["partie"], $_GET["cote"], $_GET["tour"], $_GET["trait"])) {
                     $bdd_histo_aut = json_decode($bdd_tps['histo_j'.$trait_aut], true);
                     // Recuperation des roques possibles pour l'adversaire :
                     $roques_aut = json_decode($bdd_tps['roques_j'.$trait_aut], true);
+
+                    // On récupére la nature de la pièce que le joueur souhaite bouger :
+                    $nature_pce = $bdd_jeu[$le_coup[0]][$le_coup[1]][0];
+
+                    /**
+                    Arbitrage :
+                    **/
+
+                    
 
                 }
 
