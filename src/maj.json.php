@@ -57,7 +57,7 @@ if (isset($_GET["partie"], $_GET["cote"], $_GET["tour"], $_GET["trait"])) {
 
         if($bdd_trait == $trait && $bdd_tour == $tour){
             //Si le paramètre optionnel "coup" est fourni et on récupère les infforamtions de la partie :
-            if (isset($_GET["coup"]){
+            if (isset($_GET["coup"])){
                 $coup = $_GET["coup"];
                 // Recuperation de l'etat de partie :
                 $bdd_jeu = json_decode($bdd_tps['etat_du_jeu'], true);
@@ -78,9 +78,9 @@ if (isset($_GET["partie"], $_GET["cote"], $_GET["tour"], $_GET["trait"])) {
                 }else{
                     // On recupere les informations de l'autre joueur :
                     if($trait==1){
-                        $trait_aut = 2
+                        $trait_aut = 2;
                     }else{
-                       $trait_aut = 1 
+                       $trait_aut = 1;
                     }
 
                     // Recuperation de l'historiques des coups de l'adversaire :

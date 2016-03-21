@@ -10,6 +10,7 @@ Fonctions principale :
 */
 
 function vue_all($jeu, $i, $j){
+	// Initialisation :
 	$cases_vis = '';
 	$trait = $jeu[$i][$j][1];
 
@@ -32,6 +33,7 @@ Sous-fonctions :
 */
 
 function vue_pion($jeu, $trait, $i, $j){
+	// Initialisation :
 	$cases = ''; 
 	// On fait avancer le pion 
 	$p = ($trait == 1 ? 1 : -1); 
@@ -51,7 +53,30 @@ function vue_pion($jeu, $trait, $i, $j){
 }
 
 function vue_cavalier($jeu, $trait, $i, $j){
+	// Initialisation :
+	$cases = ''; 
 
+	// Le cavalier possède plusieurs mouvements possibles :
+	// - il effectue un mouvement vers la gauche ou la droite de deux cases puis effectue un mouvement vers le haut ou la bas d'une case
+	// - il effectue un mouvement vers le haut ou la bas de deux cases puis effectue mouvement vers la gauche ou la droite d'une case
+
+	// On utilise donc les varialbe suivantes :
+	// $lin : -1 vers la gauche ou +1 vers la droite
+	// $hor : -1 vers le bas ou +1 vers le haut
+	
+	// $coef_lin pour le coefficient des déplacments linéaires : 1 ou 2
+	// $coef_hor pour le coefficient des déplacments horizontaux : 1 ou 2
+
+	for ($coef_hor = 1; $coef_hor <= 2; $coef_hor++) {
+		$coef_lin = 3 - $coef_hor; // $coef_lin = 1 quand $coef_hor = 2 et inversement
+		for ($hor = -1; $hor <= 1; $hor += 2) {
+			for ($lin = -1; $lin <= 1; $lin += 2) {
+				$case .= vues($jeu, $i+$lin*$coef_lin, $j+$hor*$coef_hor, $trait);
+			}
+		}
+	}
+
+	return $cases;
 }
 
 
