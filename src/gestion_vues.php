@@ -84,11 +84,51 @@ function vue_tour($jeu, $trait, $i, $j){
 	// Initialisation :
 	$cases = '';
 
-	// On sert de la fonction tester_vues_vecteur défini dans utilitaire_vues.php
+	// On sert de la fonction tester_vues_vecteur défini dans utilitaire_vues.php :
 	$cases .= tester_vues_vecteur($jeu, $i, $j, 1, 0, $trait); 
 	$cases .= tester_vues_vecteur($jeu, $i, $j, -1, 0, $trait); 
 	$cases .= tester_vues_vecteur($jeu, $i, $j, 0, 1, $trait); 
-	$cases .= tester_vues_vecteur($jeu, $i, $j, 0, -1, $trait); 
+	$cases .= tester_vues_vecteur($jeu, $i, $j, 0, -1, $trait);
+
+	return $cases; 
+}
+
+function vue_fou($jeu, $trait, $i, $j){
+	// Initialisation :
+	$cases = '';
+
+	// On sert de la fonction tester_vues_vecteur défini dans utilitaire_vues.php :
+	$cases .= tester_vues_vecteur($jeu, $i, $j, 1, 1, $trait); 
+	$cases .= tester_vues_vecteur($jeu, $i, $j, 1, -1, $trait); 
+	$cases .= tester_vues_vecteur($jeu, $i, $j, -1, 1, $trait); 
+	$cases .= tester_vues_vecteur($jeu, $i, $j, -1, -1, $trait); 
+
+	return $cases;
+}
+
+function vue_dame($jeu, $trait, $i, $j){
+	// Initialisation :
+	$cases = '';
+
+	// La dame possède les vues de la tour et du fou :
+	$cases .= vue_tour($jeu, $trait, $i, $j); 
+	$cases .= vue_fou($jeu, $trait, $i, $j); 
+
+	return $cases;
+}
+
+function vue_roi($jeu, $trait, $i, $j){
+	// Initialisation :
+	$cases = '';
+
+	// Le roi peux se déplacer d'une case dans l'ensemble des directions :
+	for ($di = -1; $di <= 1; $di++) {
+		for ($dj = -1; $dj <= 1; $dj++) {
+			$cases .= vues($jeu, $i+$di, $j+$dj, $trait);
+		}
+	}
+
+	return $cases;
 }
 
 ?>
