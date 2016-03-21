@@ -19,8 +19,8 @@ function vue_all($jeu, $i, $j){
 	else if ($jeu[$i][$j][0] == 'C') {$cases_vis .= vue_cavalier($jeu, $trait, $i, $j);}
 	else if ($jeu[$i][$j][0] == 'T') {$cases_vis .= vue_tour($jeu, $trait, $i, $j);}
 	else if ($jeu[$i][$j][0] == 'F') {$cases_vis .= vue_fou($jeu, $trait, $i, $j);}
-	else if ($jeu[$i][$j][0] == 'R') {$cases_vis .= vue_roi($jeu, $trait, $i, $j);}
 	else if ($jeu[$i][$j][0] == 'D') {$cases_vis .= vue_dame($jeu, $trait, $i, $j);}
+	else if ($jeu[$i][$j][0] == 'R') {$cases_vis .= vue_roi($jeu, $trait, $i, $j);}
 	
 	$cases_vis = '['.substr($cases_vis,0,-1).']';
 	$cases_vis = json_decode($cases_vis);
@@ -34,10 +34,11 @@ Sous-fonctions :
 
 function vue_pion($jeu, $trait, $i, $j){
 	// Initialisation :
-	$cases = ''; 
-	// On fait avancer le pion 
+	$cases = '';
+
+	// On gére le déplacement du pion 
 	$p = ($trait == 1 ? 1 : -1); 
-	$case .= vues($jeu, $i, $j+$p, $trait);
+	$case .= vues($jeu, $i, $j+$p, $trait); //fonction défini dans utilitaire_vues.php
 	// On gére la vision lièe au déplacement +2 cases devant
 	if (($trait-1)*5+2 == $j) {
 		// Si la case devant est vide, donc si $case n'est pas vide :
@@ -58,7 +59,7 @@ function vue_cavalier($jeu, $trait, $i, $j){
 
 	// Le cavalier possède plusieurs mouvements possibles :
 	// - il effectue un mouvement vers la gauche ou la droite de deux cases puis effectue un mouvement vers le haut ou la bas d'une case
-	// - il effectue un mouvement vers le haut ou la bas de deux cases puis effectue mouvement vers la gauche ou la droite d'une case
+	// - il effectue un mouvement vers le haut ou la bas de deux cases puis effectue un mouvement vers la gauche ou la droite d'une case
 
 	// On utilise donc les varialbe suivantes :
 	// $lin : -1 vers la gauche ou +1 vers la droite
@@ -79,5 +80,15 @@ function vue_cavalier($jeu, $trait, $i, $j){
 	return $cases;
 }
 
+function vue_tour($jeu, $trait, $i, $j){
+	// Initialisation :
+	$cases = '';
+
+	// On sert de la fonction tester_vues_vecteur défini dans utilitaire_vues.php
+	$cases .= tester_vues_vecteur($jeu, $i, $j, 1, 0, $trait); 
+	$cases .= tester_vues_vecteur($jeu, $i, $j, -1, 0, $trait); 
+	$cases .= tester_vues_vecteur($jeu, $i, $j, 0, 1, $trait); 
+	$cases .= tester_vues_vecteur($jeu, $i, $j, 0, -1, $trait); 
+}
 
 ?>
