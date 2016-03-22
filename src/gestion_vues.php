@@ -1,12 +1,12 @@
 <?php
 /**
 Fichier comprennant la gestion de la recherche de l'ensemble des cases visibles après qu'un joueur est joué
-En entrée la fonction prend $jeu les informations de vue, $i et $j la position du pion
-En sortie de la fonction principale vue_all : un tableau des cases vis grâce à ce nouveau coup, chaque case étant codée sous la forme : [i,j,"piece"]
+En entrée la fonction prend $jeu les informations de la partie, $i et $j la position du pion
+En sortie de la fonction principale vue_all : un tableau des cases vues grâce à ce nouveau coup, chaque case étant codée sous la forme : [i,j,"piece"]
 **/
 
 /*
-Fonctions principale :
+Fonction principale :
 */
 
 function vue_all($jeu, $i, $j){
@@ -14,13 +14,16 @@ function vue_all($jeu, $i, $j){
 	$cases_vis = '';
 	$trait = $jeu[$i][$j][1];
 
+	// On récupère la nature de la pièce à la position $i, $j
+	$nature = $jeu[$i][$j][0];
+
 	// On récupère les cases visibles en se basant sur la nature de la pièce :
-	if ($jeu[$i][$j][0] == 'p') {$cases_vis .= vue_pion($jeu, $trait, $i, $j);}
-	else if ($jeu[$i][$j][0] == 'C') {$cases_vis .= vue_cavalier($jeu, $trait, $i, $j);}
-	else if ($jeu[$i][$j][0] == 'T') {$cases_vis .= vue_tour($jeu, $trait, $i, $j);}
-	else if ($jeu[$i][$j][0] == 'F') {$cases_vis .= vue_fou($jeu, $trait, $i, $j);}
-	else if ($jeu[$i][$j][0] == 'D') {$cases_vis .= vue_dame($jeu, $trait, $i, $j);}
-	else if ($jeu[$i][$j][0] == 'R') {$cases_vis .= vue_roi($jeu, $trait, $i, $j);}
+	if ($nature == 'p') {$cases_vis .= vue_pion($jeu, $trait, $i, $j);}
+	else if ($nature == 'C') {$cases_vis .= vue_cavalier($jeu, $trait, $i, $j);}
+	else if ($nature == 'T') {$cases_vis .= vue_tour($jeu, $trait, $i, $j);}
+	else if ($nature == 'F') {$cases_vis .= vue_fou($jeu, $trait, $i, $j);}
+	else if ($nature == 'D') {$cases_vis .= vue_dame($jeu, $trait, $i, $j);}
+	else if ($nature == 'R') {$cases_vis .= vue_roi($jeu, $trait, $i, $j);}
 	
 	$cases_vis = '['.substr($cases_vis,0,-1).']';
 	$cases_vis = json_decode($cases_vis);
