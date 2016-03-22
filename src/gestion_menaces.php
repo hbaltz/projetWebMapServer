@@ -49,7 +49,16 @@ Sous-fonctions :
 */
 
 function menace_pion($jeu, $trait, $i, $j){
+	$cases = ''; 
+
+	// On gére le déplacement du pion 
+	$p = ($trait == 1 ? 1 : -1); 
+
+	// Un pion ne peut prendre que les pièces placer en diagonale :
+	$cases .= Vec2Str(prendrePce($jeu, $i-1, $j+$p, $trait), $trait); // Fonctions dans utilitaires.php
+	$cases .= Vec2Str(prendrePce($jeu, $i+1, $j+$p, $trait), $trait);	
 	
+	return $cases;
 }
 
 ?>
