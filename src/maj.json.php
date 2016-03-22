@@ -39,6 +39,10 @@ include('utilitaires_vues.php');
 include('gestion_menaces.php');
 include('utilitaires_menaces.php');
 
+// On inclut ce qui est utile à la gestion des coups :
+include('gestion_coups.php');
+include('utilitaires_coups.php');
+
 // Recuperation des parametres : partie, cote, tour, trait et coup en GET
 if (isset($_GET["partie"], $_GET["cote"], $_GET["tour"], $_GET["trait"])) {
 	// Les parametres sont defini ont peut continuer :

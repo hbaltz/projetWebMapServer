@@ -1,10 +1,10 @@
 <?php
 /**
-Utilitaires pour la recherche des menaces :
+Utilitaires pour la recherche des coups :
 **/
 
-function tester_menaces_vecteur($jeu, $i, $j, $di, $dj, $trait) {
-	// Fonction permettant de gérer les menaces des pièces pouvant parcourir des lignes entières (fou, tour ,dame)
+function tester_coups_vecteur($jeu, $i, $j, $di, $dj, $trait) {
+	// Fonction permettant de gérer les coups des pièces pouvant parcourir des lignes entières (fou, tour ,dame)
 	// Les variables $di et $dj permettent de choisir le sens de déplacement ainsi :
 	// $di = 1 et $dj = 0 correspond à un déplacement vertical vers la droite
 	// $di = 0 et $dj = 1 correspond à un déplacement horizontale vers le haut
@@ -17,7 +17,7 @@ function tester_menaces_vecteur($jeu, $i, $j, $di, $dj, $trait) {
 		// On récupère les informations sur la case
 		$info = info_case($jeu, $i + $di*$d, $j + $dj*$d, $trait); //Fonction dans utilitaires.php
 		if ($info[0] & ($info[1] == 'ennemi' || $info[1] == 'vide')) {
-			$cases .= Vec2Str([$i+$di*$d, $j+$dj*$d]); // Fonction définit dans utilitaires
+			$cases .= Vec2StrCoup($i, $j, [$i+$di*$d, $j+$dj*$d], $trait); // Fonction définit dans utilitaires
 		}
 		if ($info[0] == false || $info[1] != 'vide') {$stop = true;} // Stop si la case bloque
 		$d++;

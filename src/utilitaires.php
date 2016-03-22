@@ -24,8 +24,26 @@ Convertiseur :
 
 function Vec2Str($vec) {
 	// Fonction qui convertit un vecteur en string
-	if ($vec != false) {return '['.$dest[0].','.$dest[1].'],';}
+	if ($vec != false) {return '['.$vec[0].','.$vec[1].'],';}
 	else {return '';}
+}
+
+function Vec2StrCoup($a, $b, $vec, $pion = false) {
+	// Fonction qui convertit un vecteur en string sous la forme [i0,j0,i1,j1,"option"]
+	if ($vec != false) {
+		if (!$pion) {
+			return '['.$a.','.$b.','.$vec[0].','.$vec[1].'],';
+		} else {
+			// Sinon il s'agit d'un pion :
+			if (7-($pion-1)*5 == $b) { // 7 si j1, 2 si j2
+				$cases = '';
+				foreach (['C', 'F', 'T', 'D'] as $lettre) {
+					$cases .= '['.$a.','.$b.','.$vec[0].','.$vec[1].', "'.$lettre.'"],';
+				}
+				return $cases;
+			} else {return '['.$a.','.$b.','.$vec[0].','.$vec[1].'],';}
+		}
+	} else {return '';}
 }
 
 /*
@@ -70,6 +88,22 @@ function prendrePce($jeu, $i, $j, $trait) {
 	$info = info_case($jeu, $i, $j, $trait, $menaces);
 	// Si la case existe et qu(elle est vide ou à l'ennemi alors il peut la prendre)
 	if ($info[0] & ($info[1] == 'ennemi' || $info[1] == 'vide')) {return [$i, $j];}
+	else {return false;}
+}
+
+function prendrePceEn($jeu, $i, $j, $trait){
+	// Cette fonction teste si le joueur $trait, si la pièce en i,j est ennemi
+	// et si il peut prendre ou non la pièce ennemi en $i, $j
+	$info = info_case($jeu, $i, $j, $trait);
+	if ($info[0] & $info[1] == 'ennemi') {return [$i, $j];}
+	else {return false;}
+}
+
+function prendrePceVide($jeu, $i, $j, $trait){
+	// Cette fonction teste si le joueur $trait, si la pièce en i,j est vide
+	// et si il peut prendre ou non la pièce ennemi en $i, $j
+	$info = info_case($jeu, $i, $j, $trait);
+	if ($info[0] & $info[1] == 'vide') {return [$i, $j];}
 	else {return false;}
 }
 

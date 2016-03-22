@@ -42,7 +42,7 @@ function vue_pion($jeu, $trait, $i, $j){
 	// On gére le déplacement du pion 
 	$p = ($trait == 1 ? 1 : -1); 
 	$cases .= vues($jeu, $i, $j+$p, $trait); //fonction défini dans utilitaire_vues.php
-	// On gére la vision lièe au déplacement +2 cases devant
+	// On gére la vision liée au déplacement +2 cases devant
 	if (($trait-1)*5+2 == $j) {
 		// Si la case devant est vide, donc si $case n'est pas vide :
 		if ($cases != '') {
