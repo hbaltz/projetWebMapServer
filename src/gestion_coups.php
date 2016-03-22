@@ -16,7 +16,7 @@ function coup_all($jeu, $trait){
 	// On parcours l'ensemble du plateau pour déterminer l'ensemble des coups possibles par un joueur :
 	for ($i = 1; $i <= 8; $i++) {
 		for ($j = 1; $j <= 8; $j++) {
-			if(est_au_joueur($jeu, $i, $j, $trait){ //Fonction dans utilitaires.php
+			if(est_au_joueur($jeu, $i, $j, $trait)){ //Fonction dans utilitaires.php
 				// On récupère la nature de la pièce à la position $i, $j si la case est au joueur $trait
 				$nature = $jeu[$i][$j][0];
 				// En fonction de sa nature on détermine ce qu'elles sont les coups disponibles :
