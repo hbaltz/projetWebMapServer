@@ -111,10 +111,10 @@ if (isset($_GET["partie"], $_GET["cote"], $_GET["tour"], $_GET["trait"])) {
             }
 
         }else{
-            echo '{"Erreur":"Le tour ou le trait ne correspondent pas à ceux de la bdd !"}';
+            echo '{"erreur":"Le tour ou le trait ne correspondent pas à ceux de la bdd !"}';
         }
     }else{
-        echo '{"Erreur":"Le joueur ne correspond pas à celui de la bdd !"}';
+        echo '{"erreur":"Le joueur ne correspond pas à celui de la bdd !"}';
     }
 }
 
