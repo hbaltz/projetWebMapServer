@@ -55,9 +55,85 @@ function menace_pion($jeu, $trait, $i, $j){
 	$p = ($trait == 1 ? 1 : -1); 
 
 	// Un pion ne peut prendre que les pièces placer en diagonale :
-	$cases .= Vec2Str(prendrePce($jeu, $i-1, $j+$p, $trait), $trait); // Fonctions dans utilitaires.php
-	$cases .= Vec2Str(prendrePce($jeu, $i+1, $j+$p, $trait), $trait);	
+	$cases .= Vec2Str(prendrePce($jeu, $i-1, $j+$p, $trait)); // Fonctions dans utilitaires.php
+	$cases .= Vec2Str(prendrePce($jeu, $i+1, $j+$p, $trait));	
 	
+	return $cases;
+}
+
+function menace_cavalier($jeu, $trait, $i, $j){
+	$cases = '';
+	// Le cavalier possède plusieurs mouvements possibles :
+	// - il effectue un mouvement vers la gauche ou la droite de deux cases puis effectue un mouvement vers le haut ou la bas d'une case
+	// - il effectue un mouvement vers le haut ou la bas de deux cases puis effectue un mouvement vers la gauche ou la droite d'une case
+
+	// On utilise donc les varialbe suivantes :
+	// $lin : -1 vers la gauche ou +1 vers la droite
+	// $hor : -1 vers le bas ou +1 vers le haut
+	
+	// $coef_lin pour le coefficient des déplacments linéaires : 1 ou 2
+	// $coef_hor pour le coefficient des déplacments horizontaux : 1 ou 2 
+
+	for ($coef_hor = 1; $coef_hor <= 2; $coef_hor++) {
+		$coef_lin = 3 - $coef_hor; // $coef_lin = 1 quand $coef_hor = 2 et inversement
+		for ($hor = -1; $hor <= 1; $hor += 2) {
+			for ($lin = -1; $lin <= 1; $lin += 2) {
+				$cases .= Vec2Str(prendrePce($jeu, $i+$coef_lin*$lin, $j+$coef_hor*$hor, $trait));
+			}
+		}
+	}	
+	
+	return $cases;
+}
+
+function menace_tour($jeu, $trait, $i, $j){
+	// Initialisation :
+	$cases = '';
+
+	// On sert de la fonction tester_menaces_vecteur défini dans utilitaire_menaces.php :
+	$cases .= tester_menaces_vecteur($jeu, $i, $j, 1, 0, $trait); 
+	$cases .= tester_menaces_vecteur($jeu, $i, $j, -1, 0, $trait); 
+	$cases .= tester_menaces_vecteur($jeu, $i, $j, 0, 1, $trait); 
+	$cases .= tester_menaces_vecteur($jeu, $i, $j, 0, -1, $trait);
+
+	return $cases; 
+}
+
+function menace_fou($jeu, $trait, $i, $j){
+	// Initialisation :
+	$cases = '';
+
+	// On sert de la fonction tester_menaces_vecteur défini dans utilitaire_menaces.php :
+	$cases .= tester_menaces_vecteur($jeu, $i, $j, 1, 1, $trait); 
+	$cases .= tester_menaces_vecteur($jeu, $i, $j, 1, -1, $trait); 
+	$cases .= tester_menaces_vecteur($jeu, $i, $j, -1, 1, $trait); 
+	$cases .= tester_menaces_vecteur($jeu, $i, $j, -1, -1, $trait); 
+
+	return $cases;
+}
+
+function menace_dame($jeu, $trait, $i, $j){
+	// Initialisation :
+	$cases = '';
+
+	// La dame possède les menaces de la tour et du fou :
+	$cases .= menace_tour($jeu, $trait, $i, $j); 
+	$cases .= menace_fou($jeu, $trait, $i, $j); 
+
+	return $cases;
+}
+
+function menace_roi($jeu, $trait, $i, $j){
+	// Initialisation :
+	$cases = '';
+
+	// Le roi peux se déplacer d'une case dans l'ensemble des directions :
+	for ($di = -1; $di <= 1; $di++) {
+		for ($dj = -1; $dj <= 1; $dj++) {
+			$cases .= Vec2Str(prendrePce($jeu, $i+$di, $j+$dj, $trait));
+		}
+	}
+
 	return $cases;
 }
 

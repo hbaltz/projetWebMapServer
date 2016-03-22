@@ -41,7 +41,7 @@ function vue_pion($jeu, $trait, $i, $j){
 
 	// On gére le déplacement du pion 
 	$p = ($trait == 1 ? 1 : -1); 
-	$case .= vues($jeu, $i, $j+$p, $trait); //fonction défini dans utilitaire_vues.php
+	$cases .= vues($jeu, $i, $j+$p, $trait); //fonction défini dans utilitaire_vues.php
 	// On gére la vision lièe au déplacement +2 cases devant
 	if (($trait-1)*5+2 == $j) {
 		// Si la case devant est vide, donc si $case n'est pas vide :
@@ -75,7 +75,7 @@ function vue_cavalier($jeu, $trait, $i, $j){
 		$coef_lin = 3 - $coef_hor; // $coef_lin = 1 quand $coef_hor = 2 et inversement
 		for ($hor = -1; $hor <= 1; $hor += 2) {
 			for ($lin = -1; $lin <= 1; $lin += 2) {
-				$case .= vues($jeu, $i+$lin*$coef_lin, $j+$hor*$coef_hor, $trait);
+				$cases .= vues($jeu, $i+$lin*$coef_lin, $j+$hor*$coef_hor, $trait);
 			}
 		}
 	}
