@@ -64,20 +64,20 @@ if (isset($_GET["partie"], $_GET["cote"], $_GET["tour"], $_GET["trait"])) {
         $bdd_tour = $bdd_tps['tour'];
 
         if($bdd_trait == $trait && $bdd_tour == $tour){
-            //Si le paramètre optionnel "coup" est fourni et on récupère les infforamtions de la partie :
+            //Si le paramètre optionnel "coup" est fourni et on récupère les inforamtions de la partie :
             if (isset($_GET["coup"])){
                 $coup = $_GET["coup"];
                 // Recuperation de l'etat de partie :
-                $bdd_jeu = json_decode($bdd_tps['etat_du_jeu'], true);
+                $bdd_jeu = json_decode($bdd_tps['etat_du_jeu'], true); // Fonction dans utilitaires.php
                 // Recuperation de l'historiques des coups du joueur étant en tain de jouer :
                 $bdd_histo_trait = json_decode($bdd_tps['histo_j'.$trait], true); 
                 // Coup choisi :
-                $le_coup = $bdd_histo_trait[$bdd_tour*2-2]['coups'][$coup];
+                $coup = $bdd_histo_trait[$bdd_tour*2-2]['coups'][$coup];
                 // Recuperation des roques possibles pour le joueur au trait :
                 $roques_trait = json_decode($bdd_tps['roques_j'.$trait], true);
 
                 // Si le jouer choisi d'abandonner, c'est la fin de la partie :
-                if($le_coup == 'abandon'){
+                if($coup == 'abandon'){
                     $fin = 'abandon_'.$trait;
                     $bdd_histo_trait[] = ["abandon"=>1];
                     $bdd_histo_aut[] = ["abandon"=>1];
@@ -97,13 +97,27 @@ if (isset($_GET["partie"], $_GET["cote"], $_GET["tour"], $_GET["trait"])) {
                     $roques_aut = json_decode($bdd_tps['roques_j'.$trait_aut], true);
 
                     // On récupére la nature de la pièce que le joueur souhaite bouger :
-                    $nature_pce = $bdd_jeu[$le_coup[0]][$le_coup[1]][0];
+                    $nature_pce = $bdd_jeu[$coup[0]][$coup[1]][0];
 
                     /**
                     Arbitrage :
                     **/
 
-                    
+                    // On regarde les cases que menacent le joueur adverse avant le coup :
+                    $menaces_avt = menace_all($bdd_jeu, $trait_aut); //fonction dans gestion_menaces.php
+
+                    // On effectue le coup $coup :
+                    $bdd_jeu = maj_coup($bdd_jeu, $coup); // fonction dans utilitaires_coups.php
+
+                    // On calcule les cases que le joueur $trait peut voir après le coup :
+                    $cases_vis = vue_all($bdd_jeu, $coup[2], $coup[3]); // fonction dans gestion_vues.php
+
+                    // On regarde les cases que menacent le joueur adverse après le coup :
+                    $menaces_aps = menace_all($bdd_jeu, $trait_aut); //fonction dans gestion_menaces.php
+
+                    // On regroupe les deux tableaux de menaces
+                    $menace_glb = union_menaces($menaces_avt, $menaces_aps); //fonction dans utilitaires_menaces.php
+
 
                 }
 

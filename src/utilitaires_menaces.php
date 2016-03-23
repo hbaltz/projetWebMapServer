@@ -25,4 +25,14 @@ function tester_menaces_vecteur($jeu, $i, $j, $di, $dj, $trait) {
 	return $cases;
 }
 
+function union_menaces($m1, $m2) {
+	// Cette fonction regroupe deux tableaux de menaces (true = menace)
+	for ($i=1; $i < 9; $i++) { 
+		for ($j=1; $j < 9; $j++) { 
+			if ($m2[$i][$j] == true) {$m1[$i][$j] = true;}
+		}
+	}
+	return $m1;
+}
+
 ?>
