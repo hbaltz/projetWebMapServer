@@ -142,10 +142,35 @@ if (isset($_GET["partie"], $_GET["cote"], $_GET["tour"], $_GET["trait"])) {
                         $coups_pos[] = 'abandon';
                     }
 
-                    
+                    // On met à jour les historiques de chacun des joueurs :
+                    $histo_trait = ['je_joue' => $coup, 'vues' => $cases_vis];
+                    $histo_autre = ['il_joue' => $il_joue, 'coups' => $coups_pos];
 
+                    // Si la partie est fini ou qu'il y a un échehc on prévient les joueurs :
+                    if (isset($fin)) {   
+                        $histo_trait[$fin] = 1;
+                        $histo_autre[$fin] = 1;
+                    } elseif ($echec_autre) {
+                        $histo_trait['echec'] = 1;
+                        $histo_autre['echec'] = 1;
+                    }
+
+                    // Si l'autre joueur peut voir la pièce on met à jour son historique :
+                    if ($voir_nat === true) {$histo_autre['nature'] = $nature;}
+
+                    // On ajoute les variables à l'historique récupéré dans la bdd :
+                    $bdd_histo_trait[] = $histo_trait;
+                    $bdd_histo_aut[] = $histo_autre;
+
+                    // On vérifie si on doit changer de tour
+                    if ($trait_autre == 1) { // C'est de nouveau au joueur 1 de jouer : on change de tour
+                        $tour++;
+                    }
 
                 }
+                /**
+                Mise à jour de la BDD :
+                **/
 
 
             }
