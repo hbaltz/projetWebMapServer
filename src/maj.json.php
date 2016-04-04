@@ -195,7 +195,7 @@ if (isset($_GET["partie"], $_GET["cote"], $_GET["tour"], $_GET["trait"])) {
                 echo json_encode($histo_trait);
 
             }else{
-                // Si c'est bine à ce joeur de jouer on lui renvoie son histo pour ce tour et ce trait :
+                // Si c'est bien à ce joeur de jouer on lui renvoie son histo pour ce tour et ce trait :
                 $bdd_histo_trait = json_decode($bdd_tps['histo_j'.$trait], true);
                 $info = $bdd_histo_trait[($bdd_tour-1)*2];
                 echo json_encode($info);

@@ -137,6 +137,25 @@ function coup_roi($jeu, $trait, $i, $j){
 		}
 	}
 
+	if (in_array('XX', $roques)) {
+		// Petit roque possible si les cases j=6,7 sont vides (on gère les echecs ailleurs) :
+		$info1 = info_case($jeu, 6, $j, $trait);
+		$info2 = info_case($jeu, 7, $j, $trait);
+		if ($info1[1] == 'vide' & $info2[1] == 'vide') {
+			$cases .= '['.$i.','.$j.',7,'.$j.', "XX"],';
+		}
+	}
+
+	if (in_array('XXX', $roques)) {
+		// Grand roque possible si les cases j=2,3,4 sont vides (on gère les echecs ailleurs) :
+		$info1 = info_case($jeu, 2, $j, $trait);
+		$info2 = info_case($jeu, 3, $j, $trait);
+		$info3 = info_case($jeu, 4, $j, $trait);
+		if ($info1[1] == 'vide' & $info2[1] == 'vide' & $info3[1] == 'vide') {
+			$cases .= '['.$i.','.$j.',3,'.$j.', "XXX"],';
+		}
+	}
+
 	return $cases;
 }
 
