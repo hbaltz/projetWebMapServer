@@ -149,10 +149,10 @@ if (isset($_GET["partie"], $_GET["cote"], $_GET["tour"], $_GET["trait"])) {
                     // Si la partie est fini ou qu'il y a un échehc on prévient les joueurs :
                     if (isset($fin)) {   
                         $histo_trait[$fin] = 1;
-                        $histo_autre[$fin] = 1;
+                        $histo_aut[$fin] = 1;
                     } elseif ($echec_autre) {
                         $histo_trait['echec'] = 1;
-                        $histo_autre['echec'] = 1;
+                        $histo_aut['echec'] = 1;
                     }
 
                     // Si l'autre joueur peut voir la pièce on met à jour son historique :
@@ -160,7 +160,7 @@ if (isset($_GET["partie"], $_GET["cote"], $_GET["tour"], $_GET["trait"])) {
 
                     // On ajoute les variables à l'historique récupéré dans la bdd :
                     $bdd_histo_trait[] = $histo_trait;
-                    $bdd_histo_aut[] = $histo_autre;
+                    $bdd_histo_aut[] = $histo_aut;
 
                     // On vérifie si on doit changer de tour
                     if ($trait_autre == 1) { // C'est de nouveau au joueur 1 de jouer : on change de tour
@@ -172,6 +172,24 @@ if (isset($_GET["partie"], $_GET["cote"], $_GET["tour"], $_GET["trait"])) {
                 Mise à jour de la BDD :
                 **/
 
+                // Si la partie est finie, on met l'etat de la partie à l'état final :
+                if (isset($fin)) {$fin_sql = ', etat_partie = "'.$fin.'"';} 
+                else {$fin_sql = '';}
+
+                $sql = 'UPDATE parties SET tour = ' . $tour .
+                    ', trait = ' . $trait_aut .
+                    ', roques_j'.$trait. " = '" . json_encode($roques_trait) . "'" .
+                    ", etat_du_jeu = '" . json_encode($bdd_jeu) . "'" .
+                    ', histo_j'.$trait." = '" . json_encode($bdd_histo_trait) . "'" .
+                    ', histo_j'.$trait_aut." = '" . json_encode($bdd_histo_aut) . "'" .
+                    $fin_sql .
+                    '  WHERE id=' . $partie;
+                //echo "<br /><br />".$sql."<br />";
+                $nb_modifs = $bdd->exec($sql);
+                //echo $nb_modifs . ' entrees ont modifiees !';
+
+                // On renvoie la dernière ligne de $bdd_histo_trait :
+                echo json_encode($histo_trait);
 
             }
 
@@ -181,9 +199,9 @@ if (isset($_GET["partie"], $_GET["cote"], $_GET["tour"], $_GET["trait"])) {
     }else{
         echo '{"erreur":"Le joueur ne correspond pas à celui de la bdd !"}';
     }
-}
 
 // Fermeture de la connexion :
 $bdd = null;	
+}
 
 ?>    
