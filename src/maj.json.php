@@ -130,7 +130,19 @@ if (isset($_GET["partie"], $_GET["cote"], $_GET["tour"], $_GET["trait"])) {
                     $coup_pos = coup_all($bdd_jeu, $trait_aut);
 
                     // On recoupe à $coup_pos les coups qui mettent le roi en échec :
-                    $coups_pos = enlever_echec_roi($bdd_jeu, $trait_autre, $coups_pos);
+                    $coups_pos = enlever_echec_roi($bdd_jeu, $trait_autre, $coups_pos); // fonction dans utilitaires_coups.php
+
+                    // On vérifie que la partie n'est pas fini :
+                    if (count($coups_pos) == 0) {
+                        // On vérifie si l'adversaire est en échec et mat ou pat :
+                        if ($echec_autre == true) {$fin = 'mat';} 
+                        else {$fin = 'pat';}
+                    } else {
+                        // Sinon il s'agit d'un abandon :
+                        $coups_pos[] = 'abandon';
+                    }
+
+                    
 
 
                 }
