@@ -92,4 +92,20 @@ function maj_coup($jeu, $coup) {
 	return $jeu;
 }
 
+function enlever_echec_roi($jeu, $trait, $coups) {
+	// Cette fonction enlever à $coups : les coups possibles par le joueur $trait
+	// dans la partie $jeu, les coups qui mettent le roi de $trait en échec
+	$coups_valides = [];
+	foreach ($coups as $coup) {
+		// On effectue le coup :
+		$jeu_tps = maj_coup($jeu, $coup); // fonction dans utilitaires_coups.php
+		// Si le roi n'est pas en echec, on ajoute ce coup :
+		if (!roi_en_echec($jeu_tps, $trait)) { //fonction dans utilitaires.php
+			$coups_valides[] = $coup;
+			
+		}
+	}
+	return $coups_valides;
+}
+
 ?>

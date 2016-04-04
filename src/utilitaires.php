@@ -107,4 +107,22 @@ function prendrePceVide($jeu, $i, $j, $trait){
 	else {return false;}
 }
 
+function roi_en_echec($jeu, $trait) {
+	// Cette fonction teste si le roi du joueur $trait est en échec dans la pratie $jeu
+	$cases_menacees = menace_all($jeu, ($trait == 1 ? 2 : 1));
+	// On récupère la case du roi du joueur $trait :
+	for ($i=1; $i < 9; $i++) { 
+		for ($j=1; $j < 9; $j++) { 
+			if (est_au_joueur($jeu, $i, $j, $trait)) {
+				if ($jeu[$i][$j][0] == 'R') {
+					// Si elle est menacée elle est en échec
+					// On retroune donc la valeur du tableau de menace 
+					// au niveau de la case où se situe le roi
+					return $cases_menacees[$i][$j];
+				}
+			}
+		}
+	}
+}
+
 ?>

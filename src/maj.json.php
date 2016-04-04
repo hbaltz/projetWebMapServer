@@ -122,7 +122,15 @@ if (isset($_GET["partie"], $_GET["cote"], $_GET["tour"], $_GET["trait"])) {
                     $voit = voir_coup($coup, $menace_glb); //fonction dans utilitaires_vues.php
                     $il_joue = $voit[0];
                     $voir_nat = $voit[1];
-                     
+
+                    // On vérifie si l'adversaire est en échec : 
+                    $echec_autre = roi_en_echec($bdd_jeu, $trait_aut); // fonction dans utilitaires.php
+
+                    // On calcule les coups possibles que peut effectuer l'adversaire :
+                    $coup_pos = coup_all($bdd_jeu, $trait_aut);
+
+                    // On recoupe à $coup_pos les coups qui mettent le roi en échec :
+                    $coups_pos = enlever_echec_roi($bdd_jeu, $trait_autre, $coups_pos);
 
 
                 }
