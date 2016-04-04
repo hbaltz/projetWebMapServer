@@ -1,7 +1,7 @@
 <?php 
 /**
     Fichier qui vérifie que l’identifiant de login (tel qu’il figure dans la session) est valide et correspond à l’un des joueurs inscrits sur la partie (paramètres "partie"). 
-    Il renvoie ensuite soit le message d’erreur, soit le contenu du CR c'est-à-dire les informations (tour, trait, cote, histo) concernnt la partie
+    Il renvoie ensuite soit le message d’erreur, soit le contenu du CR c'est-à-dire les informations (tour, trait, cote, histo) concernant la partie
 **/
 
 // Si une session existe on récupere les informations de session:

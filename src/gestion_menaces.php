@@ -1,6 +1,6 @@
 <?php
 /**
-Fichier comprennant la gestion de la recherche de l'ensemble des cases que menacent un joueur $trait
+Fichier comprenant la gestion de la recherche de l'ensemble des cases que menacent un joueur $trait
 En entrée la fonction prend $jeu les informations de la partie
 En sortie de la fonction principale menace_all : un tableau des cases menacées par $trait
 **/

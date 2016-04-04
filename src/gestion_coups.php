@@ -1,6 +1,6 @@
 <?php
 /**
-Fichier comprennant la gestion de la recherche de l'ensemble des coups possiple pour un joueur $trait
+Fichier comprenant la gestion de la recherche de l'ensemble des coups possible pour un joueur $trait
 En entrée la fonction prend $jeu les informations de la partie
 En sortie de la fonction principale coup_all : un tableau des coups possibles sous la forme [i0,j0,i1,j1,"option"]
 **/

@@ -1,6 +1,6 @@
 <?php
 /**
-Fichier comprennant la gestion de la recherche de l'ensemble des cases visibles après qu'un joueur est joué
+Fichier comprenant la gestion de la recherche de l'ensemble des cases visibles après qu'un joueur est joué
 En entrée la fonction prend $jeu les informations de la partie, $i et $j la position du pion
 En sortie de la fonction principale vue_all : un tableau des cases vues grâce à ce nouveau coup, chaque case étant codée sous la forme : [i,j,"piece"]
 **/
