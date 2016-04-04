@@ -106,6 +106,9 @@ if (isset($_GET["partie"], $_GET["cote"], $_GET["tour"], $_GET["trait"])) {
                     // On regarde les cases que menacent le joueur adverse avant le coup :
                     $menaces_avt = menace_all($bdd_jeu, $trait_aut); //fonction dans gestion_menaces.php
 
+                    // On vérifie si je joueur peut encore roquer :
+                    $roques_trait = maj_roques($roques_trait, $trait, $nature_pce, $coup); // Fonction dans utilitaires_coups.php
+
                     // On effectue le coup $coup :
                     $bdd_jeu = maj_coup($bdd_jeu, $coup); // fonction dans utilitaires_coups.php
 
@@ -156,7 +159,7 @@ if (isset($_GET["partie"], $_GET["cote"], $_GET["tour"], $_GET["trait"])) {
                     }
 
                     // Si l'autre joueur peut voir la pièce on met à jour son historique :
-                    if ($voir_nat === true) {$histo_autre['nature'] = $nature;}
+                    if ($voir_nat === true) {$histo_autre['nature'] = $nature_pce;}
 
                     // On ajoute les variables à l'historique récupéré dans la bdd :
                     $bdd_histo_trait[] = $histo_trait;
@@ -191,6 +194,11 @@ if (isset($_GET["partie"], $_GET["cote"], $_GET["tour"], $_GET["trait"])) {
                 // On renvoie la dernière ligne de $bdd_histo_trait :
                 echo json_encode($histo_trait);
 
+            }else{
+                // Si c'est bine à ce joeur de jouer on lui renvoie son histo pour ce tour et ce trait :
+                $bdd_histo_trait = json_decode($bdd_tps['histo_j'.$trait], true);
+                $info = $bdd_histo_trait[($bdd_tour-1)*2];
+                echo json_encode($info);
             }
 
         }else{
