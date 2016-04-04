@@ -97,15 +97,46 @@ function enlever_echec_roi($jeu, $trait, $coups) {
 	// dans la partie $jeu, les coups qui mettent le roi de $trait en échec
 	$coups_valides = [];
 	foreach ($coups as $coup) {
-		// On effectue le coup :
-		$jeu_tps = maj_coup($jeu, $coup); // fonction dans utilitaires_coups.php
-		// Si le roi n'est pas en echec, on ajoute ce coup :
-		if (!roi_en_echec($jeu_tps, $trait)) { //fonction dans utilitaires.php
-			$coups_valides[] = $coup;
-			
+		if (est_un_roque($coup)) {
+			// On vérifie que le joueur peut roquer :
+			$cases_menacees = menace_all($jeu, ($trait == 1 ? 2 : 1)); // fonction dans gestion_menaces.php
+			$j = $coup[1];
+			if ($coup[4] == 'XX') {
+				// Petit roque : i=5,6,7 ne doivent pas être menacées
+				print_r($cases_menacees[5][$j]);
+				print_r($cases_menacees[6][$j]);
+				print_r($cases_menacees[7][$j]);
+				if (!($cases_menacees[5][$j] == true || $cases_menacees[6][$j] == true || $cases_menacees[7][$j] == true)) {
+					$coups_valides[] = $coup;
+				}
+			} else {
+				// Grand roque : i=3,4,5 ne doivent pas être menacées
+				if (!($cases_menacees[3][$j] == true || $cases_menacees[4][$j] == true || $cases_menacees[5][$j] == true)) {
+					$coups_valides[] = $coup;
+				}
+			}
+		} else {
+			// On effectue le coup :
+			$jeu_tps = maj_coup($jeu, $coup); // fonction dans utilitaires_coups.php
+			// Si le roi n'est pas en echec, on ajoute ce coup :
+			if (!roi_en_echec($jeu_tps, $trait)) { //fonction dans utilitaires.php
+				$coups_valides[] = $coup;
+				
+			}
 		}
+		
 	}
 	return $coups_valides;
+}
+
+function est_un_roque($coup) {
+	// Fonction qui vérifie si $coup est un roque
+	if (sizeof($coup) == 5) {
+		if ($coup[4] == 'XX' | $coup[4] == 'XXX') {
+			return true;
+		}
+	}
+	return false;
 }
 
 function tester_pp($jeu, $coup, $piece) {
