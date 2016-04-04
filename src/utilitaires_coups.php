@@ -108,4 +108,35 @@ function enlever_echec_roi($jeu, $trait, $coups) {
 	return $coups_valides;
 }
 
+function tester_pp($jeu, $coup, $piece) {
+	$trait = $piece[1];
+	$pp_possible = '';
+	$col_pion = $coup[0];
+	$case_pion = $coup[3]+($trait == 2 ? 1 : -1);
+
+	if($piece[0] == 'p') {
+		// on vérifie que le déplacement est bien de 2 :
+		if (abs($coup[1] - $coup[3]) == 2) {
+			// On vérifie la possible du pp à l'aide du coup précédent
+			if ($trait == 1) {$x = 4;} else {$x = 5;}
+			// On vérifie si il y a un pion à droite :
+			if (est_au_joueur($jeu, $col_pion-1, $x, ($trait == 1 ? 2 : 1))) { // Fonction dans utilitaires.php
+				// On vérfie si la pièce est un pion :
+				if ($jeu[$col_pion-1][$x][0] == 'p') {
+					$pp_possible .= '['.($col_pion-1).','.$x.','.$col_pion.','.$case_pion.',"pp"],';
+				}
+			}
+			// On vérifie si il y a un pion à droite :
+			if (est_au_joueur($jeu, $col_pion+1, $x, ($trait == 1 ? 2 : 1))) {
+				// On vérfie si la pièce est un pion :
+				if ($jeu[$col_pion+1][$x][0] == 'p') {
+					$pp_possible .= '['.($col_pion+1).','.$x.','.$col_pion.','.$case_pion.',"pp"],';
+				}
+			}
+
+		}
+	}
+	return $pp_possible;
+}
+
 ?>

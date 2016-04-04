@@ -115,6 +115,9 @@ if (isset($_GET["partie"], $_GET["cote"], $_GET["tour"], $_GET["trait"])) {
                     // On calcule les cases que le joueur $trait peut voir après le coup :
                     $cases_vis = vue_all($bdd_jeu, $coup[2], $coup[3]); // fonction dans gestion_vues.php
 
+                    // On vérifie si l'adversaire peut effectuer un pp :
+                    $pp = tester_pp($bdd_jeu, $coup, $bdd_jeu[$coup[2]][$coup[3]]); // fonction dans utilitaires_coups.php
+
                     // On regarde les cases que menacent le joueur adverse après le coup :
                     $menaces_aps = menace_all($bdd_jeu, $trait_aut); //fonction dans gestion_menaces.php
 
@@ -130,7 +133,7 @@ if (isset($_GET["partie"], $_GET["cote"], $_GET["tour"], $_GET["trait"])) {
                     $echec_autre = roi_en_echec($bdd_jeu, $trait_aut); // fonction dans utilitaires.php
 
                     // On calcule les coups possibles que peut effectuer l'adversaire :
-                    $coup_pos = coup_all($bdd_jeu, $trait_aut);
+                    $coup_pos = coup_all($bdd_jeu, $trait_aut, $roques_aut, $pp);
 
                     // On recoupe à $coup_pos les coups qui mettent le roi en échec :
                     $coups_pos = enlever_echec_roi($bdd_jeu, $trait_autre, $coups_pos); // fonction dans utilitaires_coups.php

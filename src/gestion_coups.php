@@ -9,7 +9,7 @@ En sortie de la fonction principale coup_all : un tableau des coups possibles so
 Fonction principale :
 */
 
-function coup_all($jeu, $trait){
+function coup_all($jeu, $trait, $roques, $pp){
 	// Initialisation :
 	$cases_coup = '';
 
@@ -25,11 +25,14 @@ function coup_all($jeu, $trait){
 				else if ($nature == 'T') {$cases_coup .= coup_tour($jeu, $trait, $i, $j);}
 				else if ($nature == 'F') {$cases_coup .= coup_fou($jeu, $trait, $i, $j);}
 				else if ($nature == 'D') {$cases_coup .= coup_dame($jeu, $trait, $i, $j);}
-				else if ($nature == 'R') {$cases_coup .= coup_roi($jeu, $trait, $i, $j);}
+				else if ($nature == 'R') {$cases_coup .= coup_roi($jeu, $trait, $i, $j, $roques);}
 			}
 		}
 	}
 	
+	// On ajoute les pp possibles :
+	$coups_possibles .= $pp;
+
 	$cases_coup = '['.substr($cases_coup,0,-1).']';
 	$cases_coup = json_decode($cases_coup);
 
@@ -125,7 +128,7 @@ function coup_dame($jeu, $trait, $i, $j){
 	return $cases;
 }
 
-function coup_roi($jeu, $trait, $i, $j){
+function coup_roi($jeu, $trait, $i, $j, $roques){
 	// Initialisation :
 	$cases = '';
 
@@ -139,7 +142,7 @@ function coup_roi($jeu, $trait, $i, $j){
 
 	if (in_array('XX', $roques)) {
 		// Petit roque possible si les cases j=6,7 sont vides (on gère les echecs ailleurs) :
-		$info1 = info_case($jeu, 6, $j, $trait);
+		$info1 = info_case($jeu, 6, $j, $trait); //fonction dans utilitaires.php
 		$info2 = info_case($jeu, 7, $j, $trait);
 		if ($info1[1] == 'vide' & $info2[1] == 'vide') {
 			$cases .= '['.$i.','.$j.',7,'.$j.', "XX"],';
