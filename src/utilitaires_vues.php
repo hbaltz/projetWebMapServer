@@ -41,4 +41,25 @@ function tester_vues_vecteur($jeu, $i, $j, $di, $dj, $trait) {
 	return $cases;
 }
 
+function voir_coup($coup, $menace){
+	// Cette fonction teste si le joueur peut voir le coup joué par l'adeversaire en fonction du tableau de menaces
+	// et remplit le vecteur il_joue qui comprend le détail du coup
+	$il_joue = [0, 0, 0, 0];
+
+	$voit_nature = false;
+	if ($menace[$coup[0]][$coup[1]] == true) {
+		$il_joue[0] = $coup[0];
+		$il_joue[1] = $coup[1];
+		$voit = true;
+	}
+	if ($menace[$coup[2]][$coup[3]] == true) {
+		$il_joue[2] = $coup[2];
+		$il_joue[3] = $coup[3];
+		$voit = true;
+	}
+
+	return [$il_joue, $voit];
+
+}
+
 ?>

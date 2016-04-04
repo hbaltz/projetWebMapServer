@@ -118,6 +118,12 @@ if (isset($_GET["partie"], $_GET["cote"], $_GET["tour"], $_GET["trait"])) {
                     // On regroupe les deux tableaux de menaces
                     $menace_glb = union_menaces($menaces_avt, $menaces_aps); //fonction dans utilitaires_menaces.php
 
+                    // On vérifie si l'adversaire peut voir le coup :
+                    $voit = voir_coup($coup, $menace_glb); //fonction dans utilitaires_vues.php
+                    $il_joue = $voit[0];
+                    $voir_nat = $voit[1];
+                     
+
 
                 }
 
