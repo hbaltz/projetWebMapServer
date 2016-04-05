@@ -56,8 +56,9 @@ if (isset($_GET["partie"], $_GET["cote"], $_GET["tour"], $_GET["trait"])) {
     $bdd_tps = repBdd($bdd, $req);
     $bdd_nom_joueur = $bdd_tps['j'.$cote];
 
+
     // On teste que cote correspond à bien à bdd_nom_joueur :
-    if($cote == $bdd_nom_joueur){
+    if($session_nom_joueur == $bdd_nom_joueur){
 
         // On vérifie que la partie en est au stade indiqué par les paramètres "tour" et "trait" :
         $bdd_trait = $bdd_tps['trait'];
@@ -136,7 +137,7 @@ if (isset($_GET["partie"], $_GET["cote"], $_GET["tour"], $_GET["trait"])) {
                     $coup_pos = coup_all($bdd_jeu, $trait_aut, $roques_aut, $pp);
 
                     // On recoupe à $coup_pos les coups qui mettent le roi en échec :
-                    $coups_pos = enlever_echec_roi($bdd_jeu, $trait_autre, $coups_pos); // fonction dans utilitaires_coups.php
+                    $coups_pos = enlever_echec_roi($bdd_jeu, $trait_aut, $coup_pos); // fonction dans utilitaires_coups.php
 
                     // On vérifie que la partie n'est pas fini :
                     if (count($coups_pos) == 0) {
@@ -150,7 +151,7 @@ if (isset($_GET["partie"], $_GET["cote"], $_GET["tour"], $_GET["trait"])) {
 
                     // On met à jour les historiques de chacun des joueurs :
                     $histo_trait = ['je_joue' => $coup, 'vues' => $cases_vis];
-                    $histo_autre = ['il_joue' => $il_joue, 'coups' => $coups_pos];
+                    $histo_aut = ['il_joue' => $il_joue, 'coups' => $coups_pos];
 
                     // Si la partie est fini ou qu'il y a un échehc on prévient les joueurs :
                     if (isset($fin)) {   
@@ -169,7 +170,7 @@ if (isset($_GET["partie"], $_GET["cote"], $_GET["tour"], $_GET["trait"])) {
                     $bdd_histo_aut[] = $histo_aut;
 
                     // On vérifie si on doit changer de tour
-                    if ($trait_autre == 1) { // C'est de nouveau au joueur 1 de jouer : on change de tour
+                    if ($trait_aut == 1) { // C'est de nouveau au joueur 1 de jouer : on change de tour
                         $tour++;
                     }
 

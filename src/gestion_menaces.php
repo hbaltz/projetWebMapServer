@@ -39,7 +39,7 @@ function menace_all($jeu, $trait){
 	// - true si elle est menacee
 	// - false si ne l'est pas
 	$jeu_menaces = array_fill(1, 8, array_fill(1, 8, false));
-	foreach ($cases_menacees as $menace) {$jeu_menaces[$menace[0]][$menace[1]] = true;}
+	foreach ($cases_men as $menace) {$jeu_menaces[$menace[0]][$menace[1]] = true;}
 
 	return $jeu_menaces;
 }

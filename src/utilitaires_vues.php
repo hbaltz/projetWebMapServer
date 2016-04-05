@@ -46,7 +46,7 @@ function voir_coup($coup, $menace){
 	// et remplit le vecteur il_joue qui comprend le détail du coup
 	$il_joue = [0, 0, 0, 0];
 
-	$voit_nature = false;
+	$voit = false;
 	if ($menace[$coup[0]][$coup[1]] == true) {
 		$il_joue[0] = $coup[0];
 		$il_joue[1] = $coup[1];

@@ -85,7 +85,7 @@ function est_au_joueur($jeu, $i, $j, $trait) {
 
 function prendrePce($jeu, $i, $j, $trait) {
 	// Cette fonction teste si le joueur $trait peut prendre ou non la pièce en $i, $j
-	$info = info_case($jeu, $i, $j, $trait, $menaces);
+	$info = info_case($jeu, $i, $j, $trait);
 	// Si la case existe et qu(elle est vide ou à l'ennemi alors il peut la prendre)
 	if ($info[0] & ($info[1] == 'ennemi' || $info[1] == 'vide')) {return [$i, $j];}
 	else {return false;}

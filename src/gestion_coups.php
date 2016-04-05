@@ -31,7 +31,7 @@ function coup_all($jeu, $trait, $roques, $pp){
 	}
 	
 	// On ajoute les pp possibles :
-	$coups_possibles .= $pp;
+	$cases_coup .= $pp;
 
 	$cases_coup = '['.substr($cases_coup,0,-1).']';
 	$cases_coup = json_decode($cases_coup);
