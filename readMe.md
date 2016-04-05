@@ -18,6 +18,10 @@ Dans ce dossier se trouve la documetantion que j'ai produite
 
 Dans ce dossier ce trouve l'ensmble du code permattant la gestion côté serveur de l'arbitrage d'une partie d'échec en brouillard de geurre
 
+### Dans debug :
+
+Fonctions utiles pour debuger mon code (création/suppreiosn de partie dans la bdd)
+
 ### Dans test_unitaires :
 
 Dans ce dossier se trouve les test unitaires.
