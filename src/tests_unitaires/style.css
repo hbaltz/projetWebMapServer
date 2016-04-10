@@ -1,0 +1,15 @@
+body {
+	width: 800px;
+	margin:auto;
+}
+
+h2 {text-align: center;}
+
+.result span {font-weight: bold;}
+.result .en_cours {color:blue;}
+.result .reussi {color:green;}
+.result .rate {color:red;}
+
+#commentaires {padding-left: 25px; padding-right: 25px;}
+
+#error {display: none;}
