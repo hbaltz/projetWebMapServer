@@ -24,4 +24,4 @@ Fonctions utiles pour debuger mon code (création/suppresisn de parties dans la 
 
 ### Dans test_unitaires :
 
-Dans ce dossier se trouve les tests unitaires.
+Dans ce dossier où se trouve les tests unitaires.
