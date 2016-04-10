@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8" />
-    <title>Test unitaire cr.json.php</title>
+    <title>Test unitaire maj.json.php</title>
                                                              
     <link rel="stylesheet" type="text/css" href="style.css" />
     <script type="text/javascript" src="jquery.js"></script>
@@ -12,17 +12,17 @@
 
     $(document).ready(function() {
     	para = {
-    		titre : 'Test unitaire cr.json.php',
-    		commentaires : "Ce test test le bon déroulement de cr.json.php.",
+    		titre : 'Test unitaire maj.json.php',
+    		commentaires : "Ce test test le bon déroulement de maj.json.php.",
 	    	// Requetes à executer pour le test
 	    	requetes : [ // url, commentaire, retour attendu
-				['cr.json.php?partie=[id]&cote=2', "les blancs ont le trait – CR des noirs"],
+				['maj.json.php?partie=[id]&tour=1&trait=1&cote=1&coup=15', "les blancs ont le trait – MAJ des blancs"],
 			],
-			retours : '["{\\"tour\\":\\"1\\",\\"trait\\":\\"1\\",\\"cote\\":1,\\"histo\\":\\"[{\\\\\\"coups\\\\\\":[[2,1,1,3],[2,1,3,3],[7,1,6,3],[7,1,8,3],[1,2,1,3],[2,2,2,3],[3,2,3,3],[4,2,4,3],[5,2,5,3],[6,2,6,3],[7,2,7,3],[8,2,8,3],[1,2,1,4],[2,2,2,4],[3,2,3,4],[4,2,4,4],[5,2,5,4],[6,2,6,4],[7,2,7,4],[8,2,8,4]]}]\\"} "]',
+			retours : '["{\\"je_joue\\":[4,2,4,4],\\"vues\\":[[4,5],[3,5],[5,5]]}    "]',
 	    	// lien de création d'une partie pour le teste
-	    	creation : '../debug/gestion_partie.php?action=creer&nom=test_unitaire_cr',
+	    	creation : '../debug/gestion_partie.php?action=creer&nom=test_unitaire_maj',
 	    	// On supprime la partie :
-	    	fin : '../debug/gestion_partie.php?action=suppr&nom=test_unitaire_cr'
+	    	fin : '../debug/gestion_partie.php?action=suppr&nom=test_unitaire_maj'
 	    };
 
     	// On lance le test :

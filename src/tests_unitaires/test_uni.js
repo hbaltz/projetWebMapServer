@@ -18,7 +18,7 @@ function effectuer_test_unitaire(para) {
 		$('#actu').html('Initialisation réussie : on lance les requetes...');
 		var idp = info.idp;
 		var nb_total = para.requetes.length;
-		var validpe = true;
+		var valide = true;
 		var retours = JSON.parse(para.retours);
 
 		$.each(para.requetes, function(i, elm) {
@@ -33,11 +33,11 @@ function effectuer_test_unitaire(para) {
 			if (!equals(JSON.parse(html), JSON.parse(retours[i]))) {
 				$('#error').show();
 				$('#error').append('<p>'+elm[1]+'</p>');
-				validpe = false;
+				valide = false;
 			}
 		});
 
-		if (validpe) {$('#actu').html('Test unitaire réussi !').addClass('reussi');}
+		if (valide) {$('#actu').html('Test unitaire réussi !').addClass('reussi');}
 		else {$('#actu').html('Test unitaire raté !').addClass('rate');}
 
 		// Suppression de la partie dans la table :
@@ -80,7 +80,7 @@ function maj_test_unitaire(para) {
 		$('#actu').html('Initialisation réussie : on lance les requetes...');
 		var idp = info.idp;
 		var nb_total = para.requetes.length;
-		var validpe = true;
+		var valide = true;
 		var req = [];
 
 		$.each(para.requetes, function(i, elm) {
@@ -88,15 +88,18 @@ function maj_test_unitaire(para) {
 			$('#en_cours').html(elm[1]+'...');
 
 			var html = $.ajax({
-				url: '../'+elm[0].replace('[idp]', idp),
+				url: '../'+elm[0].replace('[id]', idp),
 				async: false
 			}).responseText;
 
 			req.push(html);
 		});
 
+
 		$('#avancement').html('<textarea idp="req" style="height:300px;widpth:800px;"></textarea>');
 		$('#req').val(JSON.stringify(req).replace(/\\/g, '\\\\'));
+
+		console.log((JSON.stringify(req).replace(/\\/g, '\\\\')));
 	}
 }
 
